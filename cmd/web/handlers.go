@@ -1,12 +1,9 @@
 package main
 
 import (
-	"log"
+	"fmt"
 	"net/http"
-)
-
-const (
-	port = ":6969"
+	"strconv"
 )
 
 func home(w http.ResponseWriter, r *http.Request) {
@@ -20,7 +17,16 @@ func home(w http.ResponseWriter, r *http.Request) {
 }
 
 func view(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("View your life flash before eyes"))
+
+	id, err := strconv.Atoi(r.URL.Query().Get("id"))
+
+	if err != nil || id < 1 {
+		http.NotFound(w, r)
+		return
+	}
+
+	fmt.Fprintf(w, "Life will shown dear %d...", id)
+
 }
 
 func create(w http.ResponseWriter, r *http.Request) {
@@ -34,16 +40,4 @@ func create(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Write([]byte("Create your destiny"))
-}
-
-func main() {
-
-	mux := http.NewServeMux()
-	mux.HandleFunc("/", home)
-	mux.HandleFunc("/life/view", view)
-	mux.HandleFunc("/life/create", create)
-
-	log.Println("Starting server on " + port)
-	err := http.ListenAndServe(port, mux)
-	log.Fatal(err)
 }
