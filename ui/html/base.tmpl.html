@@ -1,0 +1,20 @@
+{{define "base"}}
+<!doctype html>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>{{template "title" .}} - Snippetbox</title>
+<script src="/static/htmx.min.js"></script>
+</head>
+<body>
+<header>
+<h1><a href='/'>L's</a></h1>
+</header>
+{{template "nav" .}}
+<main>
+{{template "main" .}}
+</main>
+<footer>Powered by painful yearning</footer>
+</body>
+</html>
+{{end}}
