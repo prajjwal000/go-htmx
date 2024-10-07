@@ -5,12 +5,11 @@ import (
 	"net/http"
 	"strconv"
 	"html/template"
-	"log"
 )
 
-func home(w http.ResponseWriter, r *http.Request) {
+func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
-		http.NotFound(w, r)
+		app.notFound(w)
 		return
 	}
 
@@ -22,22 +21,20 @@ func home(w http.ResponseWriter, r *http.Request) {
 
 	tm, err := template.ParseFiles(files...)
 	if err != nil {
-		log.Printf(err.Error())
-		http.Error(w,"Internal Server Error", http.StatusInternalServerError)
+		app.serverError(w, err)
 		return
 	}
 	
 	err = tm.ExecuteTemplate(w, "base", nil)
 	if err != nil {
-		log.Printf(err.Error())
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		app.serverError(w, err)
 	}
 }
 
-func view(w http.ResponseWriter, r *http.Request) {
+func (app *application) view(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(r.URL.Query().Get("id"))
 	if err != nil || id < 1 {
-		http.NotFound(w, r)
+		app.notFound(w)
 		return
 	}
 
@@ -45,10 +42,10 @@ func view(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func create(w http.ResponseWriter, r *http.Request) {
+func (app *application) create(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		w.Header().Set("Allow", http.MethodPost)
-		http.Error(w, "Try again in next life", http.StatusMethodNotAllowed)
+		app.clientError(w , http.StatusMethodNotAllowed)
 		return
 	}
 
