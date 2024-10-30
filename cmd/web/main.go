@@ -1,10 +1,14 @@
 package main
 
 import (
+	"database/sql"
 	"flag"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
+
+	_ "github.com/jackc/pgx/v5/stdlib"
 )
 
 type config struct {
@@ -31,6 +35,22 @@ func main() {
 		infoLog: infoLog,
 		errorLog: errorLog,
 	}
+	dburl := `postgres://monkey:junky@localhost:5432/blogs`
+	db, err := sql.Open("pgx", dburl)
+	if err != nil {
+		errorLog.Fatal(err)
+	}
+	defer db.Close()
+
+	var greeting string
+	id := 2
+	err = db.QueryRow("select content from blogs where id=$1 ", &id).Scan(&greeting)
+	if err != nil {
+		fmt.Println("Query Problem")
+		os.Exit(1)
+	}
+
+	fmt.Println(greeting)
 
 	mux := http.NewServeMux()
 
@@ -48,6 +68,6 @@ func main() {
 	}
 
 	infoLog.Println("Starting server on " + con.addr)
-	err := srv.ListenAndServe()
+	err = srv.ListenAndServe()
 	errorLog.Fatal(err)
 }

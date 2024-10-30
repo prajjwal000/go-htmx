@@ -14,9 +14,9 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	}
 
 	files := []string{
-		"./ui/html/pages/home.tmpl.html",
-		"./ui/html/partials/nav.tmpl.html",
-		"./ui/html/base.tmpl.html",
+		"./ui/html/pages/home.html",
+		"./ui/html/partials/nav.html",
+		"./ui/html/base.html",
 	}
 
 	tm, err := template.ParseFiles(files...)
@@ -38,7 +38,7 @@ func (app *application) view(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Fprintf(w, "Life will shown dear %d...", id)
+	fmt.Fprintf(w, "Life will be shown dear %d...", id)
 
 }
 
