@@ -20,7 +20,7 @@ type config struct {
 type application struct {
 	errorLog *log.Logger
 	infoLog  *log.Logger
-	blogm    *dbmodel.BlogModel
+	blogmodel    *dbmodel.BlogModel
 }
 
 func main() {
@@ -43,7 +43,7 @@ func main() {
 	app := &application{
 		infoLog:  infoLog,
 		errorLog: errorLog,
-		blogm:    &dbmodel.BlogModel{DB: db},
+		blogmodel:    &dbmodel.BlogModel{DB: db},
 	}
 
 	mux := http.NewServeMux()

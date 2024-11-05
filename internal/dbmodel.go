@@ -44,3 +44,32 @@ func (m *BlogModel) Get(id int) (*Blog,error) {
 
 	return s,nil
 }
+
+func (m *BlogModel) Latest() ([]*Blog, error) {
+	stmt := `select id,title,content,created from blogs where expires > NOW() order by id desc limit 10`
+
+	rows, err := m.DB.Query(stmt)
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+
+	blogs := []*Blog{}
+
+	for rows.Next() {
+		s := &Blog{}
+		err = rows.Scan(&s.Id,&s.Title, &s.Content, &s.Created)
+		if err != nil {
+			return nil,err
+		}
+
+		blogs = append(blogs, s)
+	}
+
+	if err = rows.Err(); err != nil {
+		return nil,err
+	}
+
+	return blogs,nil
+}

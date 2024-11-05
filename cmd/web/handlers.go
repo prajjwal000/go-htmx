@@ -13,6 +13,16 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	blogs,err := app.blogmodel.Latest()
+	if err != nil {
+		app.serverError(w,err)
+		return
+	}
+
+	for _,v := range blogs {
+		app.infoLog.Println(v)
+	}
+
 	files := []string{
 		"./ui/html/pages/home.html",
 		"./ui/html/partials/nav.html",
@@ -38,18 +48,13 @@ func (app *application) view(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	blog, err := app.blogm.Get(id)
+	blog, err := app.blogmodel.Get(id)
 	if err != nil {
 		app.serverError(w, err)
 		return
 	}
 
-	ret, err := app.blogm.Insert("tits", "bits are just tits")
-	if err != nil {
-		app.errorLog.Print(err)
-	}
-
-	fmt.Fprintf(w, "Life will be shown dear %d... \n %v \n Inserted id=%d", id, blog,ret)
+	fmt.Fprintf(w, "Life will be shown dear %d... \n %v", id, blog)
 }
 
 func (app *application) create(w http.ResponseWriter, r *http.Request) {
@@ -58,6 +63,14 @@ func (app *application) create(w http.ResponseWriter, r *http.Request) {
 		app.clientError(w, http.StatusMethodNotAllowed)
 		return
 	}
+	title := r.FormValue("title")
+	content := r.FormValue("content")
 
-	w.Write([]byte("Create your destiny"))
+	id, err := app.blogmodel.Insert( title, content)
+	if err != nil {
+		app.serverError(w,err)
+		return
+	}
+
+	fmt.Fprintf(w,"Id=%d blog created ",id)
 }
