@@ -12,7 +12,9 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 		app.notFound(w)
 		return
 	}
+/*
 
+//TODO: Handle no result error separartely
 	blogs,err := app.blogmodel.Latest()
 	if err != nil {
 		app.serverError(w,err)
@@ -22,7 +24,7 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	for _,v := range blogs {
 		app.infoLog.Println(v)
 	}
-
+*/
 	files := []string{
 		"./ui/html/pages/home.html",
 		"./ui/html/partials/nav.html",
@@ -54,7 +56,23 @@ func (app *application) view(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Fprintf(w, "Life will be shown dear %d... \n %v", id, blog)
+	files := []string{
+		"./ui/html/pages/view.html",
+		"./ui/html/partials/nav.html",
+		"./ui/html/base.html",
+	}
+
+	tm, err := template.ParseFiles(files...)
+	if err!=nil {
+		app.serverError(w,err)
+		return
+	}
+
+	err = tm.ExecuteTemplate(w, "base", blog)
+	if err!=nil{
+		app.serverError(w,err)
+		return
+	}
 }
 
 func (app *application) create(w http.ResponseWriter, r *http.Request) {

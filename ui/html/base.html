@@ -3,16 +3,25 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>{{template "title" .}} - Snippetbox</title>
-    <script src="/static/htmx.min.js"></script>
+    <title>{{template "title" .}} - Blogs</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    <script src="https://unpkg.com/htmx.org@2.0.3"></script>
   </head>
   <body>
-    <header>
-      <h1><a href="/">L's</a></h1>
-    </header>
-    {{template "nav" .}}
+    <header>{{template "nav" .}}</header>
+
     <main>{{template "main" .}}</main>
-    <footer>Powered by painful yearning</footer>
+
+    <footer>
+
+      <form method="post" action="/life/create">
+        <label for="title">Title</label><br />
+        <input type="text" name="title" value="title" /><br />
+        <label for="content">Content</label><br />
+        <input type="textbox" name="content" value="content" /><br /><br />
+        <input type="submit" value="Submit" />
+      </form>
+    Powered by painful yearning</footer>
   </body>
 </html>
 {{end}}
