@@ -54,6 +54,7 @@ func main() {
 	mux.HandleFunc("/", app.home)
 	mux.HandleFunc("/life/view", app.view)
 	mux.HandleFunc("/life/create", app.create)
+	mux.HandleFunc("/life/creation", app.creation)
 
 	srv := &http.Server{
 		Addr:     con.addr,

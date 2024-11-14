@@ -92,3 +92,24 @@ func (app *application) create(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Fprintf(w,"Id=%d blog created ",id)
 }
+
+func (app *application) creation(w http.ResponseWriter, r *http.Request) {
+
+	files := []string{
+		"./ui/html/pages/creation.html",
+		"./ui/html/partials/nav.html",
+		"./ui/html/base.html",
+	}
+
+	tm, err := template.ParseFiles(files...)
+	if err!=nil {
+		app.serverError(w,err)
+		return
+	}
+
+	err = tm.ExecuteTemplate(w, "base", nil)
+	if err!=nil{
+		app.serverError(w,err)
+		return
+	}
+}
