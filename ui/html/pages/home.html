@@ -1,5 +1,20 @@
 {{define "title"}}Home{{end}} {{define "main"}}
-  <h1>Welcome to Life</h1>
-  <section>
-  </section>
+<h1>Welcome to Life</h1>
+<section>
+  <table>
+    {{if .Blogs}}
+    <tr>
+      <th>Title</th>
+      <th>Created</th>
+      <th>ID</th>
+    </tr>
+    {{range .Blogs}}
+    <tr>
+      <td><a href="/life/view?id={{.Id}}"> {{.Title}}</a></td>
+      <td>{{.Created.Format "2006 Jan 03"}}</td>
+      <td>{{.Id}}</td>
+    </tr>
+    {{end}} {{else}} No content found {{end}}
+  </table>
+</section>
 {{end}}

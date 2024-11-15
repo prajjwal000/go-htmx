@@ -1,12 +1,16 @@
-{{define "title"}}View {{end}} {{define "main"}}
-
+{{define "title"}}View {{end}} {{define "main"}} {{with .Blog}}
 <div class="blog">
-    <h4> {{.Title}}</h4>
-    <p style=" color:#999;white-space:nowrap; overflow:hidden; text-overflow: ellipsis;">  created on {{ .Created.Format "2006 Jan 03" }} </p>
-    <pre> {{.Content}} </pre>
-
-
+  <h4>{{.Title}}</h4>
+  <p
+    style="
+      color: #999;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    "
+  >
+    created on {{ .Created.Format "2006 Jan 03" }}
+  </p>
+  <pre> {{.Content}} </pre>
 </div>
-
-
-{{end}}
+{{end}} {{end}}

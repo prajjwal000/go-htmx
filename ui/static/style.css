@@ -2,12 +2,12 @@
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 /* Color Theme -
@@ -16,70 +16,78 @@
 
 /* Define variables for your colors */
 :root {
-    --color-shades-dark: rgb(25, 25, 25);
-    --color-shades-light: rgb(165, 167, 175);
+  --color-shades-dark: rgb(25, 25, 25);
+  --color-shades-light: rgb(165, 167, 175);
 }
-html{
-    height:100%;
+html {
+  height: 100%;
 }
 /* Basic font styling */
 body {
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content:space-evenly;
-    font-family:
-        Segoe UI,
-        system-ui,
-        -apple-system,
-        sans-serif;
-    font-size: 1.6rem;
-    text-align: center;
-    text-wrap: wrap;
-    background-color: grey;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  font-family:
+    Segoe UI,
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-size: 1.6rem;
+  text-align: center;
+  text-wrap: wrap;
+  background-color: grey;
 }
 
 /* Remove the default list styling and create a flexible layout for the list */
 ul {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 /* Basic link styling */
 a {
-    --text-color: var(--color-shades-dark);
+  --text-color: var(--color-shades-dark);
 
-    border-block-end: 3px solid var(--border-color, transparent);
-    color: var(--text-color);
-    padding: 0.1rem;
-    text-decoration: none;
+  border-block-end: 3px solid var(--border-color, transparent);
+  color: var(--text-color);
+  padding: 0.1rem;
+  text-decoration: none;
 }
 
 /* Change the border-color on :hover and :focus */
 a:where(:hover, :focus) {
-    --border-color: var(--text-color);
+  --border-color: var(--text-color);
 }
 
 form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 /* TODO: Remove Debug hack */
 pre {
-    white-space: pre-wrap;       /* Since CSS 2.1 */
-    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
-    white-space: -pre-wrap;      /* Opera 4-6 */
-    white-space: -o-pre-wrap;    /* Opera 7 */
-    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+  white-space: pre-wrap; /* Since CSS 2.1 */
+  white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+  white-space: -pre-wrap; /* Opera 4-6 */
+  white-space: -o-pre-wrap; /* Opera 7 */
+  word-wrap: break-word; /* Internet Explorer 5.5+ */
 }
 
+table {
+  border: 2px solid black;
+}
+
+th,
+td {
+  border: 1px solid black;
+}
 
